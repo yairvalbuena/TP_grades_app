@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tp_grades.Data;
 
 namespace Tp_grades.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210520205027_float")]
+    partial class @float
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -190,13 +192,13 @@ namespace Tp_grades.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Grade_1");
+                    b.Property<float>("Grade_1");
 
-                    b.Property<string>("Grade_2");
+                    b.Property<float>("Grade_2");
 
-                    b.Property<string>("Grade_3");
+                    b.Property<float>("Grade_3");
 
-                    b.Property<string>("Grade_average");
+                    b.Property<float>("Grade_average");
 
                     b.Property<string>("Student_Last_Name");
 
