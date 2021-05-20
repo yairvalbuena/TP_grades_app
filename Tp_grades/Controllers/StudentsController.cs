@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,7 @@ using Tp_grades.Models;
 
 namespace Tp_grades.Controllers
 {
+    [Authorize]
     public class StudentsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -23,16 +25,18 @@ namespace Tp_grades.Controllers
         // GET: Students
         public async Task<IActionResult> Index()
         {
-            //var studentList = await _context.Student.ToListAsync();
-            //var newlist = new List<Student>();
-            //foreach (var item in studentList)
-            //{
-            //    float x1 = float.Parse(item.Grade_1 , CultureInfo.InvariantCulture.NumberFormat);
-            //    float x2 = float.Parse(item.Grade_2, CultureInfo.InvariantCulture.NumberFormat);
-            //    float x3 = float.Parse(item.Grade_3, CultureInfo.InvariantCulture.NumberFormat);
-            //    item.Grade_average = ((x1+x2+x3)/3).ToString();
-            //    newlist.Add(item);
-            //}
+            var students = await _context.Student.ToListAsync();
+            float averageTotal= 0.0f;
+            foreach(var item in students)
+            {
+                var x1 = float.Parse(item.Grade_average);
+                averageTotal = averageTotal + x1;
+            }
+            if (students.Count() != 0)
+            {
+                averageTotal = averageTotal / students.Count();
+            }
+            ViewBag.Average = averageTotal.ToString();
             return View(await _context.Student.ToListAsync());
         }
 
